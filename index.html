@@ -232,5 +232,48 @@ window.onload = function() {
 <link rel="manifest" href="manifest.json">
 
 </head>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MQ135 Canlı Veri</title>
+</head>
+<body style="text-align:center; font-family:Arial;">
+
+<h1>MQ135 Gaz Degeri</h1>
+<h2 id="value">Bagli Degil</h2>
+
+<button onclick="connect()">Arduino Baglan</button>
+
+<script>
+
+let port;
+let reader;
+
+async function connect() {
+  port = await navigator.serial.requestPort();
+  await port.open({ baudRate: 9600 });
+
+  const decoder = new TextDecoderStream();
+  port.readable.pipeTo(decoder.writable);
+  reader = decoder.readable.getReader();
+
+  readData();
+}
+
+async function readData() {
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    if (value) {
+      document.getElementById("value").innerText = value;
+    }
+  }
+}
+
+</script>
+
+</body>
+</html>
 
 
