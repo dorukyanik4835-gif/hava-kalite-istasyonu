@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Temizlik Kayıt Sistemi</title>
+<title>Temizlik & Gaz Takip</title>
 
 <style>
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     background: url("bg.jpg") no-repeat center center;
     background-size: 1024px 1024px;
@@ -25,12 +24,15 @@ body {
     border-radius: 15px;
     width: 360px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    box-shadow: 0 0 20px rgba(0,0,0,0.25);
 }
 
-h1 {
-    margin-top: 0;
-    color: #2d89ef;
+h1 { margin-top: 0; color: #2d89ef; }
+
+.gaz {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 button {
@@ -43,61 +45,17 @@ button {
     cursor: pointer;
     background-color: #2d89ef;
     color: white;
-    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #1b5fa7;
-}
+button:hover { background-color: #1b5fa7; }
 
 .kayit {
     margin-top: 15px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: left;
-    max-height: 120px;
+    max-height: 140px;
     overflow-y: auto;
+    border-top: 1px solid #ccc;
+    padding-top: 8px;
 }
-</style>
-</head>
-
-<body>
-
-<div class="container">
-    <h1>🧼 Temizlik Kayıt Sistemi</h1>
-
-    <p><strong>Temizlik Zamanı:</strong></p>
-    <p id="zaman"></p>
-
-    <p><strong>Ürün Seç:</strong></p>
-
-    <button onclick="kaydet('Domestos')">Domestos</button>
-    <button onclick="kaydet('Cif')">Cif</button>
-    <button onclick="kaydet('Mr. Muscle')">Mr. Muscle</button>
-    <button onclick="kaydet('Bingo')">Bingo</button>
-
-    <div class="kayit">
-        <strong>Kayıtlar:</strong>
-        <div id="liste"></div>
-    </div>
-</div>
-
-<script>
-function guncelZaman() {
-    const now = new Date();
-    document.getElementById("zaman").innerText =
-        now.toLocaleString("tr-TR");
-}
-
-function kaydet(marka) {
-    const now = new Date().toLocaleString("tr-TR");
-    const yeniKayit = document.createElement("div");
-    yeniKayit.innerText = now + " - " + marka + " ile temizlendi";
-    document.getElementById("liste").prepend(yeniKayit);
-}
-
-setInterval(guncelZaman, 1000);
-guncelZaman();
-</script>
-
-</body>
-</html>
+</style
