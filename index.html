@@ -94,6 +94,10 @@ window.onload = function() {
         document.getElementById("sonTemizlik").innerText = kayit;
     }
 }
+<meta name="theme-color" content="#2c3e50">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+    
 </script>
 
 </body>
@@ -101,4 +105,9 @@ window.onload = function() {
 <meta name="theme-color" content="#2c3e50">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
 
