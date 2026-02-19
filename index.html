@@ -275,5 +275,62 @@ async function readData() {
 
 </body>
 </html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MQ135 Otomatik Sistem</title>
+</head>
+<body style="text-align:center; font-family:Arial; transition:0.3s;">
+
+<h1>MQ135 Gaz Degeri</h1>
+<h2 id="value">Baglaniliyor...</h2>
+<h3 id="status"></h3>
+
+<script>
+
+let port;
+let reader;
+
+async function autoConnect() {
+
+  port = await navigator.serial.requestPort();
+  await port.open({ baudRate: 9600 });
+
+  const decoder = new TextDecoderStream();
+  port.readable.pipeTo(decoder.writable);
+  reader = decoder.readable.getReader();
+
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+
+    if (value) {
+      let temizDeger = parseFloat(value.trim());
+
+      document.getElementById("value").innerText = temizDeger;
+
+      if (temizDeger < 300) {
+        document.body.style.background = "#b6fcb6";
+        document.getElementById("status").innerText = "Temiz Hava";
+      } 
+      else if (temizDeger < 600) {
+        document.body.style.background = "#fff3a3";
+        document.getElementById("status").innerText = "Orta Seviye";
+      } 
+      else {
+        document.body.style.background = "#ff9e9e";
+        document.getElementById("status").innerText = "Kirli Hava!";
+      }
+    }
+  }
+}
+
+autoConnect();
+
+</script>
+
+</body>
+</html>
 
 
