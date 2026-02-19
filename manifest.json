@@ -7,3 +7,10 @@
   "theme_color": "#2c3e50",
   "icons": 
 }
+"icons": [
+  {
+    "src": "icon.png",
+    "sizes": "1024x1024",
+    "type": "image/png"
+  }
+]
