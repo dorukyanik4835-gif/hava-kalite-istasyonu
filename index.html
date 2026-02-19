@@ -1,390 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Hava Kalite Istasyonu</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="5">
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background: #f4f4f4;
-        }
-       "icons": [
-    {
-      "src": "icon.png",
-      "sizes": "1024x1024",
-      "type": "image/png"
-    }
-  ]
-    </style>
-</head>
-<body>
-
-<h1>🌫️ Hava Kalite Istasyonu</h1>
-
-<div class="card">
-    <h2>Sensor 1</h2>
-    <p id="s1">Yükleniyor...</p>
-</div>
-
-<div class="card">
-    <h2>Sensor 2</h2>
-    <p id="s2">Yükleniyor...</p>
-</div>
-
-<div class="card">
-    <h2>Sensor 3</h2>
-    <p id="s3">Yükleniyor...</p>
-</div>
-
-<script>
-fetch("veri.json")
-.then(response => response.json())
-.then(data => {
-    document.getElementById("s1").innerText = data.sensor1;
-    document.getElementById("s2").innerText = data.sensor2;
-    document.getElementById("s3").innerText = data.sensor3;
-});
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Hava Kalite Istasyonu</title>
-<style>
-body { font-family: Arial; text-align:center; background:#f4f4f4; }
-.card { background:white; padding:20px; margin:20px; display:inline-block; border-radius:10px; }
-input, button { padding:10px; margin:5px; }
-</style>
-</head>
-<body>
-
-<h1>🌫️ Hava Kalite Istasyonu</h1>
-
-<div class="card">
-<h2>Temizlik Kaydı</h2>
-
-<input type="text" id="temizlik" placeholder="Ne ile temizlendi?">
-<button onclick="kaydet()">Kaydet</button>
-
-<p><b>Son Temizlik:</b></p>
-<p id="sonTemizlik">Henüz kayıt yok</p>
-
-</div>
-
-<script>
-function kaydet() {
-    let temizlik = document.getElementById("temizlik").value;
-    let zaman = new Date().toLocaleString();
-
-    let bilgi = temizlik + " - " + zaman;
-
-    localStorage.setItem("temizlikBilgi", bilgi);
-    document.getElementById("sonTemizlik").innerText = bilgi;
-}
-
-window.onload = function() {
-    let kayit = localStorage.getItem("temizlikBilgi");
-    if(kayit){
-        document.getElementById("sonTemizlik").innerText = kayit;
-    }
-}
-<meta name="theme-color" content="#2c3e50">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-    
-</script>
-
-</body>
-</html>
-<meta name="theme-color" content="#2c3e50">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Temizlik Takip</title>
-</head>
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.container {
-  width: 100%;
-  min-height: 100vh;
-}
-<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hava Kalite & Temizlik Takip</title>
-
-<!-- PWA Manifest -->
-<link rel="manifest" href="manifest.json">
-
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-}
-
-header {
-  background: #007bff;
-  color: white;
-  padding: 15px;
-  font-size: 24px;
-}
-
-.container {
-  padding: 20px;
-}
-
-.card {
-  background: white;
-  padding: 15px;
-  margin: 15px auto;
-  border-radius: 8px;
-  max-width: 400px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-input, button {
-  padding: 10px;
-  margin-top: 10px;
-  width: 90%;
-}
-
-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-</style>
-</head>
-
-<body>
-
-<header>🌫️ Hava Kalite & Temizlik</header>
-
-<div class="container">
-
-  <div class="card">
-    <h3>Son Sensör Değerleri</h3>
-    <p id="sensor1">Sensor 1: 0</p>
-    <p id="sensor2">Sensor 2: 0</p>
-    <p id="sensor3">Sensor 3: 0</p>
-  </div>
-
-  <div class="card">
-    <h3>Temizlik Kaydı</h3>
-    <input type="text" id="temizlik" placeholder="Ne ile temizlendi?">
-    <button onclick="kaydet()">Kaydet</button>
-    <p><b>Son Temizlik:</b></p>
-    <p id="sonTemizlik">Henüz kayıt yok</p>
-  </div>
-
-</div>
-
-<script>
-function kaydet() {
-  let text = document.getElementById("temizlik").value;
-  let zaman = new Date().toLocaleString();
-  let veri = text + " - " + zaman;
-
-  localStorage.setItem("temizlikKayit", veri);
-  document.getElementById("sonTemizlik").innerText = veri;
-}
-
-window.onload = function() {
-  let kayit = localStorage.getItem("temizlikKayit");
-  if (kayit) {
-    document.getElementById("sonTemizlik").innerText = kayit;
-  }
-};
-</script>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hava Kalite</title>
-
-<link rel="icon" type="image/png" sizes="1024x1024" href="icon.png">
-<link rel="apple-touch-icon" sizes="1024x1024" href="icon.png">
-<link rel="manifest" href="manifest.json">
-
-</head>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>MQ135 Canlı Veri</title>
-</head>
-<body style="text-align:center; font-family:Arial;">
-
-<h1>MQ135 Gaz Degeri</h1>
-<h2 id="value">Bagli Degil</h2>
-
-<button onclick="connect()">Arduino Baglan</button>
-
-<script>
-
-let port;
-let reader;
-
-async function connect() {
-  port = await navigator.serial.requestPort();
-  await port.open({ baudRate: 9600 });
-
-  const decoder = new TextDecoderStream();
-  port.readable.pipeTo(decoder.writable);
-  reader = decoder.readable.getReader();
-
-  readData();
-}
-
-async function readData() {
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    if (value) {
-      document.getElementById("value").innerText = value;
-    }
-  }
-}
-
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>MQ135 Otomatik Sistem</title>
-</head>
-<body style="text-align:center; font-family:Arial; transition:0.3s;">
-
-<h1>MQ135 Gaz Degeri</h1>
-<h2 id="value">Baglaniliyor...</h2>
-<h3 id="status"></h3>
-
-<script>
-
-let port;
-let reader;
-
-async function autoConnect() {
-
-  port = await navigator.serial.requestPort();
-  await port.open({ baudRate: 9600 });
-
-  const decoder = new TextDecoderStream();
-  port.readable.pipeTo(decoder.writable);
-  reader = decoder.readable.getReader();
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-
-    if (value) {
-      let temizDeger = parseFloat(value.trim());
-
-      document.getElementById("value").innerText = temizDeger;
-
-      if (temizDeger < 300) {
-        document.body.style.background = "#b6fcb6";
-        document.getElementById("status").innerText = "Temiz Hava";
-      } 
-      else if (temizDeger < 600) {
-        document.body.style.background = "#fff3a3";
-        document.getElementById("status").innerText = "Orta Seviye";
-      } 
-      else {
-        document.body.style.background = "#ff9e9e";
-        document.getElementById("status").innerText = "Kirli Hava!";
-      }
-    }
-  }
-}
-
-autoConnect();
-
-</script>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Gaz Takip</title>
+<title>Temizlik ve Gaz Takip Sistemi</title>
 
 <style>
 body {
     margin: 0;
-    padding: 0;
-    height: 100vh;
-
-    background-image: url("bg.jpg"); /* resim adı */
-    background-size: contain;  /* 1024x1024 */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-color: #eaeaea;
-}
-
-/* İçerik kutusu */
-.content {
-    text-align: center;
-    padding-top: 50px;
-    font-family: Arial;
-    color: #003366;
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="content">
-    <h1>MQ135 Gaz Takip Sistemi</h1>
-</div>
-
-</body>
-</html>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Temizlik Takip Sistemi</title>
-
-<style>
-body {
-    margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     background: url("bg.jpg") no-repeat center center;
     background-size: 1024px 1024px;
-    background-color: #f4f4f4;
+    background-color: #f2f2f2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,16 +19,23 @@ body {
 }
 
 .container {
-    background: rgba(255,255,255,0.9);
-    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    padding: 25px;
     border-radius: 15px;
-    width: 350px;
+    width: 380px;
     text-align: center;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
-h2 {
+h1 {
     margin-top: 0;
+    color: #2d89ef;
+}
+
+.sensor {
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: bold;
 }
 
 button {
@@ -410,19 +44,23 @@ button {
     margin: 6px 0;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     background-color: #2d89ef;
     color: white;
+    transition: 0.3s;
 }
 
 button:hover {
     background-color: #1b5fa7;
 }
 
-.info {
+.kayit {
     margin-top: 15px;
-    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+    max-height: 120px;
+    overflow-y: auto;
 }
 </style>
 </head>
@@ -430,39 +68,57 @@ button:hover {
 <body>
 
 <div class="container">
-    <h2>🧼 Temizlik Sistemi</h2>
+    <h1>🧼 Temizlik ve Gaz Takip</h1>
 
+    <!-- SENSÖR BÖLÜMÜ -->
+    <div class="sensor">
+        Gaz Değeri: <span id="gaz">--</span>
+    </div>
+
+    <!-- TEMİZLİK ZAMANI -->
     <p><strong>Temizlik Zamanı:</strong></p>
     <p id="zaman"></p>
 
-    <p><strong>Neyle Temizlendi?</strong></p>
+    <!-- ÜRÜN BUTONLARI -->
+    <p><strong>Ürün Seç:</strong></p>
 
-    <button onclick="sec('Domestos')">Domestos</button>
-    <button onclick="sec('Cif')">Cif</button>
-    <button onclick="sec('Mr. Muscle')">Mr. Muscle</button>
-    <button onclick="sec('Bingo')">Bingo</button>
+    <button onclick="kaydet('Domestos')">Domestos</button>
+    <button onclick="kaydet('Cif')">Cif</button>
+    <button onclick="kaydet('Mr. Muscle')">Mr. Muscle</button>
+    <button onclick="kaydet('Bingo')">Bingo</button>
 
-    <div class="info">
-        Seçilen Ürün: <span id="urun">Henüz seçilmedi</span>
+    <!-- KAYIT LİSTESİ -->
+    <div class="kayit">
+        <strong>Kayıtlar:</strong>
+        <div id="liste"></div>
     </div>
 </div>
 
 <script>
+/* Saat */
 function guncelZaman() {
     const now = new Date();
     document.getElementById("zaman").innerText =
         now.toLocaleString("tr-TR");
 }
-
-function sec(marka) {
-    document.getElementById("urun").innerText = marka;
-}
-
 setInterval(guncelZaman, 1000);
 guncelZaman();
+
+/* Temizlik Kaydı */
+function kaydet(marka) {
+    const now = new Date().toLocaleString("tr-TR");
+    const yeniKayit = document.createElement("div");
+    yeniKayit.innerText = now + " - " + marka + " ile temizlendi";
+    document.getElementById("liste").prepend(yeniKayit);
+}
+
+/* SENSÖR SİMÜLASYON (şimdilik) */
+/* Gerçek Arduino bağlantısı yoksa test için */
+setInterval(function(){
+    let rastgele = Math.floor(Math.random() * 400) + 100;
+    document.getElementById("gaz").innerText = rastgele;
+}, 2000);
 </script>
 
 </body>
 </html>
-
-
